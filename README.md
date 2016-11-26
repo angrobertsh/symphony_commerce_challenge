@@ -6,6 +6,4 @@
 
   Using an API from Symphony, details of products are shown as a store.
 
-## Technologies
-
 ## Implementation details
