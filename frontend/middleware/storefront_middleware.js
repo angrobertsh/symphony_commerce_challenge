@@ -3,11 +3,21 @@ import * as UTILS from "../util/storefront_util";
 
 let success;
 
+const preprocessData = (data) => {
+  let itemsObj = JSON.parse(data);
+  let processedItems = {};
+  itemsObj.products.forEach((item, idx) => {
+    processedItems[idx+1] = {name: item.name, price: item.defaultPriceInCents, image: item.mainImage.ref};
+  });
+  return processedItems;
+};
+
 const StorefrontMiddleware = ({state, dispatch}) => next => action => {
   switch(action.type){
     case "FETCH_ITEMS":
       success = (items) => {
-        dispatch(ACTIONS.receiveItems(items));
+        let processedItems = preprocessData(items)
+        dispatch(ACTIONS.receiveItems(processedItems));
       };
       UTILS.fetchItems(success);
       return next(action);

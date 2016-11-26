@@ -62,10 +62,18 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
+	var _storefront_actions = __webpack_require__(202);
+	
+	var STOREFRONTACTIONS = _interopRequireWildcard(_storefront_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  var store = (0, _store2.default)();
+	  store.dispatch(STOREFRONTACTIONS.fetchItems());
+	  window.store = store;
 	  var rootDiv = document.getElementById('root');
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), rootDiv);
 	});
@@ -22615,11 +22623,16 @@
 	  value: true
 	});
 	var fetchItems = exports.fetchItems = function fetchItems() {
-	  type: "FETCH_ITEMS";
+	  return {
+	    type: "FETCH_ITEMS"
+	  };
 	};
 	
 	var receiveItems = exports.receiveItems = function receiveItems(items) {
-	  type: "RECEIVE_ITEMS", items;
+	  return {
+	    type: "RECEIVE_ITEMS",
+	    items: items
+	  };
 	};
 	
 	// export const sortItems = (sort) => {
@@ -25339,6 +25352,15 @@
 	
 	var success = void 0;
 	
+	var preprocessData = function preprocessData(data) {
+	  var itemsObj = JSON.parse(data);
+	  var processedItems = {};
+	  itemsObj.products.forEach(function (item, idx) {
+	    processedItems[idx + 1] = { name: item.name, price: item.defaultPriceInCents, image: item.mainImage.ref };
+	  });
+	  return processedItems;
+	};
+	
 	var StorefrontMiddleware = function StorefrontMiddleware(_ref) {
 	  var state = _ref.state,
 	      dispatch = _ref.dispatch;
@@ -25347,7 +25369,8 @@
 	      switch (action.type) {
 	        case "FETCH_ITEMS":
 	          success = function success(items) {
-	            dispatch(ACTIONS.receiveItems(items));
+	            var processedItems = preprocessData(items);
+	            dispatch(ACTIONS.receiveItems(processedItems));
 	          };
 	          UTILS.fetchItems(success);
 	          return next(action);
@@ -25362,15 +25385,23 @@
 
 /***/ },
 /* 290 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.fetchItems = undefined;
+	
+	var _jquery = __webpack_require__(304);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var fetchItems = exports.fetchItems = function fetchItems(success) {
-	  $.ajax({
+	  _jquery2.default.ajax({
 	    method: "GET",
 	    url: "https://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js",
 	    success: success,
@@ -26182,7 +26213,9 @@
 	// import * as ACTIONS from '../../actions/storefront_actions';
 	
 	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
+	  return {
+	    items: state.storefront.items
+	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {

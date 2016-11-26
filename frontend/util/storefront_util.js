@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 export const fetchItems = (success) => {
   $.ajax({
     method: "GET",
