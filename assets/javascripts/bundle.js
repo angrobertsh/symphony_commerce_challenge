@@ -36826,7 +36826,7 @@
 	    var _this = _possibleConstructorReturn(this, (FilterBar.__proto__ || Object.getPrototypeOf(FilterBar)).call(this, props));
 	
 	    _this.updateFilterPrice = _this.updateFilterPrice.bind(_this);
-	    _this.submitSort = _this.submitSort.bind(_this);
+	    _this.updateSort = _this.updateSort.bind(_this);
 	    return _this;
 	  }
 	

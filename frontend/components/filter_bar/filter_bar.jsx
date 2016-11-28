@@ -5,7 +5,7 @@ class FilterBar extends React.Component{
   constructor(props){
     super(props);
     this.updateFilterPrice = this.updateFilterPrice.bind(this);
-    this.submitSort = this.submitSort.bind(this);
+    this.updateSort = this.updateSort.bind(this);
   }
 
   updateFilterPrice(){
