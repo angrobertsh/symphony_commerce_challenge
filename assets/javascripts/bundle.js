@@ -22594,7 +22594,7 @@
 	
 	var defaultState = {
 	  items: {},
-	  filters: { price: 0 }
+	  filters: { price: undefined, sort: "none" }
 	};
 	
 	var newState = void 0;
@@ -22609,6 +22609,9 @@
 	      return newState;
 	    case "PRICE_MAX":
 	      newState = (0, _merge2.default)({}, state, { filters: { price: action.price } });
+	      return newState;
+	    case "NEW_SORT":
+	      newState = (0, _merge2.default)({}, state, { filters: { sort: action.sort } });
 	      return newState;
 	    default:
 	      return state;
@@ -22643,6 +22646,13 @@
 	  return {
 	    type: "PRICE_MAX",
 	    price: price
+	  };
+	};
+	
+	var newSort = exports.newSort = function newSort(sort) {
+	  return {
+	    type: "NEW_SORT",
+	    sort: sort
 	  };
 	};
 
@@ -36517,8 +36527,9 @@
 	      var items = this.props.items;
 	      var itemsJSX = [];
 	      var priceMax = this.props.filters["price"];
+	      var sort = this.props.filters["sort"];
 	      itemKeys.forEach(function (itemKey, idx) {
-	        if (priceMax !== 0) {
+	        if (priceMax !== undefined) {
 	          if (parseInt(items[itemKey].price) < priceMax) {
 	            itemsJSX.push(_react2.default.createElement(_storefront_index_item2.default, { key: itemKey, item: items[itemKey] }));
 	          }
@@ -36526,7 +36537,24 @@
 	          itemsJSX.push(_react2.default.createElement(_storefront_index_item2.default, { key: itemKey, item: items[itemKey] }));
 	        }
 	      });
-	      return itemsJSX;
+	      switch (sort) {
+	        case "name":
+	          return itemsJSX.sort(function (el1, el2) {
+	            if (el1.props.item.name < el2.props.item.name) {
+	              return -1;
+	            }
+	            return 1;
+	          });
+	        case "price":
+	          return itemsJSX.sort(function (el1, el2) {
+	            if (el1.props.item.price < el2.props.item.price) {
+	              return -1;
+	            }
+	            return 1;
+	          });
+	        default:
+	          return itemsJSX;
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -36756,6 +36784,9 @@
 	  return {
 	    priceMax: function priceMax(price) {
 	      return dispatch(ACTIONS.priceMax(price));
+	    },
+	    newSort: function newSort(sort) {
+	      return dispatch(ACTIONS.newSort(sort));
 	    }
 	  };
 	};
@@ -36794,21 +36825,29 @@
 	
 	    var _this = _possibleConstructorReturn(this, (FilterBar.__proto__ || Object.getPrototypeOf(FilterBar)).call(this, props));
 	
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.updateFilterPrice = _this.updateFilterPrice.bind(_this);
+	    _this.submitSort = _this.submitSort.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(FilterBar, [{
-	    key: "handleSubmit",
-	    value: function handleSubmit() {
+	    key: "updateFilterPrice",
+	    value: function updateFilterPrice() {
+	      document.getElementById("pricesubmit").innerHTML = "Items Under $" + (parseInt(document.getElementById("pricebar").value) / 100).toFixed(2);
 	      var price = parseInt(document.getElementById("pricebar").value);
 	      this.props.priceMax(price);
 	    }
 	  }, {
-	    key: "updateFilterPrice",
-	    value: function updateFilterPrice() {
-	      document.getElementById("pricesubmit").innerHTML = "See Items Under $" + (parseInt(document.getElementById("pricebar").value) / 100).toFixed(2);
+	    key: "submitSort",
+	    value: function submitSort() {
+	      var sortValue = "none";
+	      var radioArray = document.getElementsByName("sort");
+	      for (var i = 0; i < radioArray.length; i++) {
+	        if (radioArray[i].checked) {
+	          sortValue = radioArray[i].value;
+	        }
+	      }
+	      this.props.newSort(sortValue);
 	    }
 	  }, {
 	    key: "render",
@@ -36816,11 +36855,35 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "filterbar" },
-	        _react2.default.createElement("input", { type: "range", id: "pricebar", min: "0", max: "5000", onInput: this.updateFilterPrice, onChange: this.updateFilterPrice }),
 	        _react2.default.createElement(
 	          "div",
-	          { id: "pricesubmit", onClick: this.handleSubmit },
-	          "Filter by Price"
+	          { id: "pricesubmit" },
+	          "Filter by Price:"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          "$0",
+	          _react2.default.createElement("input", { type: "range", id: "pricebar", min: "0", step: "500", max: "5000", onInput: this.updateFilterPrice, onChange: this.updateFilterPrice }),
+	          "$50"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          _react2.default.createElement(
+	            "div",
+	            { id: "sortby" },
+	            "Sort by"
+	          ),
+	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "name" }),
+	          "Name",
+	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "price" }),
+	          "Price",
+	          _react2.default.createElement(
+	            "div",
+	            { id: "submitsort", onClick: this.submitSort },
+	            "Sort Results"
+	          )
 	        )
 	      );
 	    }

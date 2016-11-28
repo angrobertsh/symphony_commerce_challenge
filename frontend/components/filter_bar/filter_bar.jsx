@@ -4,25 +4,41 @@ class FilterBar extends React.Component{
 
   constructor(props){
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFilterPrice = this.updateFilterPrice.bind(this);
+    this.submitSort = this.submitSort.bind(this);
   }
 
-  handleSubmit(){
+  updateFilterPrice(){
+    document.getElementById("pricesubmit").innerHTML = `Items Under $${(parseInt(document.getElementById("pricebar").value)/100).toFixed(2)}`;
     let price = parseInt(document.getElementById("pricebar").value);
     this.props.priceMax(price);
   }
 
-  updateFilterPrice(){
-    document.getElementById("pricesubmit").innerHTML = `See Items Under $${(parseInt(document.getElementById("pricebar").value)/100).toFixed(2)}`;
+  submitSort(){
+    let sortValue = "none";
+    let radioArray = document.getElementsByName("sort");
+    for(let i = 0; i < radioArray.length; i++){
+      if(radioArray[i].checked){
+        sortValue = radioArray[i].value;
+      }
+    }
+    this.props.newSort(sortValue);
   }
 
   render(){
     return (<div className="filterbar">
-      <input type="range" id="pricebar" min="0" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/>
-      <div id="pricesubmit" onClick={this.handleSubmit}>Filter by Price</div>
+      <div id="pricesubmit">Filter by Price:</div>
+      <div>$0<input type="range" id="pricebar" min="0" step="500" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/>$50</div>
+      <div>
+        <div id="sortby">Sort by</div>
+        <input type="radio" name="sort" value="name" />Name
+        <input type="radio" name="sort" value="price" />Price
+        <div id="submitsort" onClick={this.submitSort}>Sort Results</div>
+      </div>
     </div>);
   }
 }
+
+
 
 export default FilterBar;

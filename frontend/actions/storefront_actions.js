@@ -11,3 +11,8 @@ export const priceMax = (price) => ({
   type: "PRICE_MAX",
   price
 })
+
+export const newSort = (sort) => ({
+  type: "NEW_SORT",
+  sort
+})

@@ -14,17 +14,32 @@ class StorefrontIndex extends React.Component{
     let items = this.props.items;
     let itemsJSX = [];
     let priceMax = this.props.filters["price"];
+    let sort = this.props.filters["sort"];
     itemKeys.forEach((itemKey, idx) => {
-      if(priceMax !== 0){
+      if(priceMax !== undefined){
         if(parseInt(items[itemKey].price) < priceMax){
           itemsJSX.push(<StorefrontIndexItem key={itemKey} item={items[itemKey]} />);
         }
-
       } else {
         itemsJSX.push(<StorefrontIndexItem key={itemKey} item={items[itemKey]} />);
       }
     });
-    return itemsJSX;
+    switch(sort){
+      case "name":
+        return itemsJSX.sort((el1, el2) => {
+          if(el1.props.item.name < el2.props.item.name){
+            return -1;
+          }
+          return 1;});
+      case "price":
+        return itemsJSX.sort((el1, el2) => {
+          if(el1.props.item.price < el2.props.item.price){
+            return -1;
+          }
+          return 1;});
+      default:
+        return itemsJSX;
+    }
   }
 
 

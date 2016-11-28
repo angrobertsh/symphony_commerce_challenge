@@ -3,7 +3,7 @@ import merge from 'lodash/merge';
 
 const defaultState = {
   items: {},
-  filters: {price: 0}
+  filters: {price: undefined, sort: "none"}
 };
 
 let newState;
@@ -15,6 +15,9 @@ const StorefrontReducer = (state = defaultState, action) => {
       return newState;
     case "PRICE_MAX":
       newState = merge({}, state, {filters: {price: action.price}});
+      return newState;
+    case "NEW_SORT":
+      newState = merge({}, state, {filters: {sort: action.sort}});
       return newState;
     default:
       return state;

@@ -6,7 +6,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  priceMax: (price) => dispatch(ACTIONS.priceMax(price))
+  priceMax: (price) => dispatch(ACTIONS.priceMax(price)),
+  newSort: (sort) => dispatch(ACTIONS.newSort(sort))
 });
 
 export default connect(
