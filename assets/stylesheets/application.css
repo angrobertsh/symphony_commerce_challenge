@@ -146,7 +146,7 @@ html{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 575px;
+  width: 475px;
 }
 
 #pricebarfield{
@@ -154,7 +154,7 @@ html{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 305px;
+  width: 265px;
 }
 
 #sortbybarfield{
@@ -162,5 +162,21 @@ html{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 200px;
+  width: 175px;
+}
+
+#pricebarinput{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sortbyinput{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pricebar{
+  width: 90px;
 }

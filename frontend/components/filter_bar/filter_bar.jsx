@@ -31,7 +31,7 @@ class FilterBar extends React.Component{
         <div className="filterbar">
           <div id="pricebarfield">
             <div id="pricebartext">Filter by Price</div>
-            <div id="pricebarinput">$0<input type="range" id="pricebar" min="0" step="500" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/>$50</div>
+            <div id="pricebarinput">$0 <input type="range" id="pricebar" min="0" step="500" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/> $50</div>
           </div>
           <div id="sortbybarfield">
             <div id="sortbytext">Sort by</div>
