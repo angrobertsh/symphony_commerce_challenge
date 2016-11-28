@@ -36838,8 +36838,8 @@
 	      this.props.priceMax(price);
 	    }
 	  }, {
-	    key: "submitSort",
-	    value: function submitSort() {
+	    key: "updateSort",
+	    value: function updateSort() {
 	      var sortValue = "none";
 	      var radioArray = document.getElementsByName("sort");
 	      for (var i = 0; i < radioArray.length; i++) {
@@ -36875,15 +36875,10 @@
 	            { id: "sortby" },
 	            "Sort by"
 	          ),
-	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "name" }),
+	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "name", onChange: this.updateSort }),
 	          "Name",
-	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "price" }),
-	          "Price",
-	          _react2.default.createElement(
-	            "div",
-	            { id: "submitsort", onClick: this.submitSort },
-	            "Sort Results"
-	          )
+	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "price", onChange: this.updateSort }),
+	          "Price"
 	        )
 	      );
 	    }

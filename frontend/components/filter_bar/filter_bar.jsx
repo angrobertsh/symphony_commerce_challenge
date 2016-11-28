@@ -14,7 +14,7 @@ class FilterBar extends React.Component{
     this.props.priceMax(price);
   }
 
-  submitSort(){
+  updateSort(){
     let sortValue = "none";
     let radioArray = document.getElementsByName("sort");
     for(let i = 0; i < radioArray.length; i++){
@@ -31,9 +31,8 @@ class FilterBar extends React.Component{
       <div>$0<input type="range" id="pricebar" min="0" step="500" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/>$50</div>
       <div>
         <div id="sortby">Sort by</div>
-        <input type="radio" name="sort" value="name" />Name
-        <input type="radio" name="sort" value="price" />Price
-        <div id="submitsort" onClick={this.submitSort}>Sort Results</div>
+        <input type="radio" name="sort" value="name" onChange={this.updateSort}/>Name
+        <input type="radio" name="sort" value="price" onChange={this.updateSort}/>Price
       </div>
     </div>);
   }
