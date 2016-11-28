@@ -22593,7 +22593,8 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var defaultState = {
-	  items: {}
+	  items: {},
+	  filters: { price: 0 }
 	};
 	
 	var newState = void 0;
@@ -22605,6 +22606,9 @@
 	  switch (action.type) {
 	    case "RECEIVE_ITEMS":
 	      newState = (0, _merge2.default)({}, state, { items: action.items });
+	      return newState;
+	    case "PRICE_MAX":
+	      newState = (0, _merge2.default)({}, state, { filters: { price: action.price } });
 	      return newState;
 	    default:
 	      return state;
@@ -22635,10 +22639,12 @@
 	  };
 	};
 	
-	// export const sortItems = (sort) => {
-	//   type: "SORT_ITEMS",
-	//   sort: sort
-	// };
+	var priceMax = exports.priceMax = function priceMax(price) {
+	  return {
+	    type: "PRICE_MAX",
+	    price: price
+	  };
+	};
 
 /***/ },
 /* 203 */
@@ -36403,15 +36409,24 @@
 	
 	var _storefront_index_container2 = _interopRequireDefault(_storefront_index_container);
 	
+	var _banner_container = __webpack_require__(306);
+	
+	var _banner_container2 = _interopRequireDefault(_banner_container);
+	
+	var _filter_bar_container = __webpack_require__(308);
+	
+	var _filter_bar_container2 = _interopRequireDefault(_filter_bar_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import FilterBarContainer from './filter_bar/filter_bar_container';
 	// import RouterContainer from './router/router_container';
 	
 	var App = function App() {
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'app' },
+	    _react2.default.createElement(_banner_container2.default, null),
+	    _react2.default.createElement(_filter_bar_container2.default, null),
 	    _react2.default.createElement(_storefront_index_container2.default, null)
 	  );
 	};
@@ -36440,7 +36455,8 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    items: state.storefront.items
+	    items: state.storefront.items,
+	    filters: state.storefront.filters
 	  };
 	};
 	
@@ -36500,8 +36516,15 @@
 	      var itemKeys = Object.keys(this.props.items);
 	      var items = this.props.items;
 	      var itemsJSX = [];
-	      itemKeys.forEach(function (item, idx) {
-	        itemsJSX.push(_react2.default.createElement(_storefront_index_item2.default, { item: items[item] }));
+	      var priceMax = this.props.filters["price"];
+	      itemKeys.forEach(function (itemKey, idx) {
+	        if (priceMax !== 0) {
+	          if (parseInt(items[itemKey].price) < priceMax) {
+	            itemsJSX.push(_react2.default.createElement(_storefront_index_item2.default, { key: itemKey, item: items[itemKey] }));
+	          }
+	        } else {
+	          itemsJSX.push(_react2.default.createElement(_storefront_index_item2.default, { key: itemKey, item: items[itemKey] }));
+	        }
 	      });
 	      return itemsJSX;
 	    }
@@ -36510,10 +36533,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'itemIndex' },
+	        { id: 'itemindex' },
 	        _react2.default.createElement(
 	          'ul',
-	          null,
+	          { className: 'itemindexul' },
 	          this.itemArray()
 	        )
 	      );
@@ -36555,10 +36578,18 @@
 	  function StorefrontIndexItem(props) {
 	    _classCallCheck(this, StorefrontIndexItem);
 	
-	    return _possibleConstructorReturn(this, (StorefrontIndexItem.__proto__ || Object.getPrototypeOf(StorefrontIndexItem)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (StorefrontIndexItem.__proto__ || Object.getPrototypeOf(StorefrontIndexItem)).call(this, props));
+	
+	    _this.addToCart = _this.addToCart.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(StorefrontIndexItem, [{
+	    key: "addToCart",
+	    value: function addToCart() {
+	      return true;
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      var item = this.props.item;
@@ -36567,40 +36598,238 @@
 	        { key: item.id, className: "itembox" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "itemnamewrapper" },
+	          { className: "itemmain" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "itemname" },
-	            item.name
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "itemimagewrapper" },
+	            { className: "itemimagewrapper" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "itemimage" },
+	              _react2.default.createElement("img", { src: item.image })
+	            )
+	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "itemimage" },
-	            _react2.default.createElement("img", { src: item.image })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "itempricewrapper" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "itemprice" },
-	            "$",
-	            parseInt(item.price) / 100
+	            { className: "itemnameandprice" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "itemnamewrapper" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "itemname" },
+	                item.name
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "itempricewrapper" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "itemprice" },
+	                "$",
+	                (parseInt(item.price) / 100).toFixed(2)
+	              )
+	            )
 	          )
 	        )
 	      );
 	    }
+	
+	    // <div className="addtocart">
+	    //   <button onClick={this.addToCart}>Add To Cart</button>
+	    // </div>
+	
+	
 	  }]);
 	
 	  return StorefrontIndexItem;
 	}(_react2.default.Component);
 	
 	exports.default = StorefrontIndexItem;
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(293);
+	
+	var _banner = __webpack_require__(307);
+	
+	var _banner2 = _interopRequireDefault(_banner);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_banner2.default);
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Banner = function (_React$Component) {
+	  _inherits(Banner, _React$Component);
+	
+	  function Banner(props) {
+	    _classCallCheck(this, Banner);
+	
+	    return _possibleConstructorReturn(this, (Banner.__proto__ || Object.getPrototypeOf(Banner)).call(this, props));
+	  }
+	
+	  _createClass(Banner, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "banner" },
+	        _react2.default.createElement("img", { src: "./assets/images/fijibanner.png" })
+	      );
+	    }
+	  }]);
+	
+	  return Banner;
+	}(_react2.default.Component);
+	
+	exports.default = Banner;
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(293);
+	
+	var _filter_bar = __webpack_require__(309);
+	
+	var _filter_bar2 = _interopRequireDefault(_filter_bar);
+	
+	var _storefront_actions = __webpack_require__(202);
+	
+	var ACTIONS = _interopRequireWildcard(_storefront_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    priceMax: function priceMax(price) {
+	      return dispatch(ACTIONS.priceMax(price));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_filter_bar2.default);
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FilterBar = function (_React$Component) {
+	  _inherits(FilterBar, _React$Component);
+	
+	  function FilterBar(props) {
+	    _classCallCheck(this, FilterBar);
+	
+	    var _this = _possibleConstructorReturn(this, (FilterBar.__proto__ || Object.getPrototypeOf(FilterBar)).call(this, props));
+	
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.updateFilterPrice = _this.updateFilterPrice.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(FilterBar, [{
+	    key: "handleSubmit",
+	    value: function handleSubmit() {
+	      var price = parseInt(document.getElementById("pricebar").value);
+	      this.props.priceMax(price);
+	    }
+	  }, {
+	    key: "updateFilterPrice",
+	    value: function updateFilterPrice() {
+	      document.getElementById("pricesubmit").innerHTML = "See Items Under $" + (parseInt(document.getElementById("pricebar").value) / 100).toFixed(2);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "filterbar" },
+	        _react2.default.createElement("input", { type: "range", id: "pricebar", min: "0", max: "5000", onInput: this.updateFilterPrice, onChange: this.updateFilterPrice }),
+	        _react2.default.createElement(
+	          "div",
+	          { id: "pricesubmit", onClick: this.handleSubmit },
+	          "Filter by Price"
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return FilterBar;
+	}(_react2.default.Component);
+	
+	exports.default = FilterBar;
 
 /***/ }
 /******/ ]);

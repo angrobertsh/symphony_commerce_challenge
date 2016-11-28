@@ -13,16 +13,26 @@ class StorefrontIndex extends React.Component{
     let itemKeys = Object.keys(this.props.items);
     let items = this.props.items;
     let itemsJSX = [];
-    itemKeys.forEach((item, idx) => {
-      itemsJSX.push(<StorefrontIndexItem item={items[item]} />);
+    let priceMax = this.props.filters["price"];
+    itemKeys.forEach((itemKey, idx) => {
+      if(priceMax !== 0){
+        if(parseInt(items[itemKey].price) < priceMax){
+          itemsJSX.push(<StorefrontIndexItem key={itemKey} item={items[itemKey]} />);
+        }
+
+      } else {
+        itemsJSX.push(<StorefrontIndexItem key={itemKey} item={items[itemKey]} />);
+      }
     });
     return itemsJSX;
   }
 
+
+
   render(){
     return(
-      <div className="itemIndex">
-        <ul>
+      <div id="itemindex">
+        <ul className="itemindexul">
           { this.itemArray() }
         </ul>
       </div>

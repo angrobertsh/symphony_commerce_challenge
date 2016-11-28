@@ -7,7 +7,7 @@ export const receiveItems = (items) => ({
   items
 });
 
-// export const sortItems = (sort) => {
-//   type: "SORT_ITEMS",
-//   sort: sort
-// };
+export const priceMax = (price) => ({
+  type: "PRICE_MAX",
+  price
+})
