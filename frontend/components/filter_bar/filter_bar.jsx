@@ -9,7 +9,7 @@ class FilterBar extends React.Component{
   }
 
   updateFilterPrice(){
-    document.getElementById("pricesubmit").innerHTML = `Items Under $${(parseInt(document.getElementById("pricebar").value)/100).toFixed(2)}`;
+    document.getElementById("pricebartext").innerHTML = `Items Under $${(parseInt(document.getElementById("pricebar").value)/100).toFixed(2)}`;
     let price = parseInt(document.getElementById("pricebar").value);
     this.props.priceMax(price);
   }
@@ -26,15 +26,21 @@ class FilterBar extends React.Component{
   }
 
   render(){
-    return (<div className="filterbar">
-      <div id="pricesubmit">Filter by Price:</div>
-      <div>$0<input type="range" id="pricebar" min="0" step="500" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/>$50</div>
-      <div>
-        <div id="sortby">Sort by</div>
-        <input type="radio" name="sort" value="name" onChange={this.updateSort}/>Name
-        <input type="radio" name="sort" value="price" onChange={this.updateSort}/>Price
+    return (
+      <div className="filterbarcontainer">
+        <div className="filterbar">
+          <div id="pricebarfield">
+            <div id="pricebartext">Filter by Price</div>
+            <div id="pricebarinput">$0<input type="range" id="pricebar" min="0" step="500" max="5000" onInput={this.updateFilterPrice} onChange={this.updateFilterPrice}/>$50</div>
+          </div>
+          <div id="sortbybarfield">
+            <div id="sortbytext">Sort by</div>
+            <div className="sortbyinput"><input type="radio" name="sort" value="name" onChange={this.updateSort}/>Name</div>
+            <div className="sortbyinput"><input type="radio" name="sort" value="price" onChange={this.updateSort}/>Price</div>
+          </div>
+        </div>
       </div>
-    </div>);
+    );
   }
 }
 

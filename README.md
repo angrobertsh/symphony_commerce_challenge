@@ -49,6 +49,8 @@ const mapStateToProps = (state) => ({
   These price filter is applied as the slider is updated, the `StorefrontIndex` changing its render based on what prices are lower than the slider's value. The sorting (by name or price) is applied on submit using an onSubmit handler, with similar work being done by the `StorefrontIndex` rendering.
 
 ```javascript
+let priceMax = this.props.filters["price"];
+let sort = this.props.filters["sort"];
 itemKeys.forEach((itemKey, idx) => {
   if(priceMax !== undefined){
     if(parseInt(items[itemKey].price) < priceMax){

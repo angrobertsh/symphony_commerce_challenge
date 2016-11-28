@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import StorefrontIndexItem from './storefront_index_item';
 
 class StorefrontIndex extends React.Component{

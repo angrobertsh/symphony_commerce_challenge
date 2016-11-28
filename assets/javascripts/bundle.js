@@ -36492,10 +36492,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _jquery = __webpack_require__(291);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
 	var _storefront_index_item = __webpack_require__(305);
 	
 	var _storefront_index_item2 = _interopRequireDefault(_storefront_index_item);
@@ -36833,7 +36829,7 @@
 	  _createClass(FilterBar, [{
 	    key: "updateFilterPrice",
 	    value: function updateFilterPrice() {
-	      document.getElementById("pricesubmit").innerHTML = "Items Under $" + (parseInt(document.getElementById("pricebar").value) / 100).toFixed(2);
+	      document.getElementById("pricebartext").innerHTML = "Items Under $" + (parseInt(document.getElementById("pricebar").value) / 100).toFixed(2);
 	      var price = parseInt(document.getElementById("pricebar").value);
 	      this.props.priceMax(price);
 	    }
@@ -36854,31 +36850,47 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "filterbar" },
+	        { className: "filterbarcontainer" },
 	        _react2.default.createElement(
 	          "div",
-	          { id: "pricesubmit" },
-	          "Filter by Price:"
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          null,
-	          "$0",
-	          _react2.default.createElement("input", { type: "range", id: "pricebar", min: "0", step: "500", max: "5000", onInput: this.updateFilterPrice, onChange: this.updateFilterPrice }),
-	          "$50"
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          null,
+	          { className: "filterbar" },
 	          _react2.default.createElement(
 	            "div",
-	            { id: "sortby" },
-	            "Sort by"
+	            { id: "pricebarfield" },
+	            _react2.default.createElement(
+	              "div",
+	              { id: "pricebartext" },
+	              "Filter by Price"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { id: "pricebarinput" },
+	              "$0",
+	              _react2.default.createElement("input", { type: "range", id: "pricebar", min: "0", step: "500", max: "5000", onInput: this.updateFilterPrice, onChange: this.updateFilterPrice }),
+	              "$50"
+	            )
 	          ),
-	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "name", onChange: this.updateSort }),
-	          "Name",
-	          _react2.default.createElement("input", { type: "radio", name: "sort", value: "price", onChange: this.updateSort }),
-	          "Price"
+	          _react2.default.createElement(
+	            "div",
+	            { id: "sortbybarfield" },
+	            _react2.default.createElement(
+	              "div",
+	              { id: "sortbytext" },
+	              "Sort by"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "sortbyinput" },
+	              _react2.default.createElement("input", { type: "radio", name: "sort", value: "name", onChange: this.updateSort }),
+	              "Name"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "sortbyinput" },
+	              _react2.default.createElement("input", { type: "radio", name: "sort", value: "price", onChange: this.updateSort }),
+	              "Price"
+	            )
+	          )
 	        )
 	      );
 	    }
