@@ -36415,15 +36415,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _storefront_index_container = __webpack_require__(306);
+	var _storefront_index_container = __webpack_require__(303);
 	
 	var _storefront_index_container2 = _interopRequireDefault(_storefront_index_container);
 	
-	var _banner_container = __webpack_require__(329);
+	var _banner = __webpack_require__(326);
 	
-	var _banner_container2 = _interopRequireDefault(_banner_container);
+	var _banner2 = _interopRequireDefault(_banner);
 	
-	var _filter_bar_container = __webpack_require__(331);
+	var _filter_bar_container = __webpack_require__(327);
 	
 	var _filter_bar_container2 = _interopRequireDefault(_filter_bar_container);
 	
@@ -36435,7 +36435,7 @@
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'app' },
-	    _react2.default.createElement(_banner_container2.default, null),
+	    _react2.default.createElement(_banner2.default, null),
 	    _react2.default.createElement(_filter_bar_container2.default, null),
 	    _react2.default.createElement(_storefront_index_container2.default, null)
 	  );
@@ -36444,10 +36444,7 @@
 	exports.default = App;
 
 /***/ },
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36458,13 +36455,11 @@
 	
 	var _reactRedux = __webpack_require__(293);
 	
-	var _storefront_index = __webpack_require__(307);
+	var _storefront_index = __webpack_require__(304);
 	
 	var _storefront_index2 = _interopRequireDefault(_storefront_index);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// import * as ACTIONS from '../../actions/storefront_actions';
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
@@ -36480,7 +36475,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_storefront_index2.default);
 
 /***/ },
-/* 307 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36495,7 +36490,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _storefront_index_item = __webpack_require__(308);
+	var _storefront_index_item = __webpack_require__(305);
 	
 	var _storefront_index_item2 = _interopRequireDefault(_storefront_index_item);
 	
@@ -36576,7 +36571,7 @@
 	exports.default = StorefrontIndex;
 
 /***/ },
-/* 308 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36591,7 +36586,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactModal = __webpack_require__(309);
+	var _reactModal = __webpack_require__(306);
 	
 	var _reactModal2 = _interopRequireDefault(_reactModal);
 	
@@ -36699,12 +36694,6 @@
 	        )
 	      );
 	    }
-	
-	    // <div className="addtocart">
-	    //   <button onClick={this.addToCart}>Add To Cart</button>
-	    // </div>
-	
-	
 	  }]);
 	
 	  return StorefrontIndexItem;
@@ -36713,25 +36702,25 @@
 	exports.default = StorefrontIndexItem;
 
 /***/ },
-/* 309 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(310);
+	module.exports = __webpack_require__(307);
 	
 
 
 /***/ },
-/* 310 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var ExecutionEnvironment = __webpack_require__(311);
-	var ModalPortal = React.createFactory(__webpack_require__(312));
-	var ariaAppHider = __webpack_require__(327);
-	var elementClass = __webpack_require__(328);
+	var ExecutionEnvironment = __webpack_require__(308);
+	var ModalPortal = React.createFactory(__webpack_require__(309));
+	var ariaAppHider = __webpack_require__(324);
+	var elementClass = __webpack_require__(325);
 	var renderSubtreeIntoContainer = __webpack_require__(32).unstable_renderSubtreeIntoContainer;
-	var Assign = __webpack_require__(316);
+	var Assign = __webpack_require__(313);
 	
 	var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
 	var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
@@ -36842,7 +36831,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 311 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -36887,14 +36876,14 @@
 
 
 /***/ },
-/* 312 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var div = React.DOM.div;
-	var focusManager = __webpack_require__(313);
-	var scopeTab = __webpack_require__(315);
-	var Assign = __webpack_require__(316);
+	var focusManager = __webpack_require__(310);
+	var scopeTab = __webpack_require__(312);
+	var Assign = __webpack_require__(313);
 	
 	// so that our CSS is statically analyzable
 	var CLASS_NAMES = {
@@ -37105,10 +37094,10 @@
 
 
 /***/ },
-/* 313 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var findTabbable = __webpack_require__(314);
+	var findTabbable = __webpack_require__(311);
 	var modalElement = null;
 	var focusLaterElement = null;
 	var needToFocus = false;
@@ -37179,7 +37168,7 @@
 
 
 /***/ },
-/* 314 */
+/* 311 */
 /***/ function(module, exports) {
 
 	/*!
@@ -37235,10 +37224,10 @@
 
 
 /***/ },
-/* 315 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var findTabbable = __webpack_require__(314);
+	var findTabbable = __webpack_require__(311);
 	
 	module.exports = function(node, event) {
 	  var tabbable = findTabbable(node);
@@ -37260,7 +37249,7 @@
 
 
 /***/ },
-/* 316 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37271,9 +37260,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseAssign = __webpack_require__(317),
-	    createAssigner = __webpack_require__(323),
-	    keys = __webpack_require__(319);
+	var baseAssign = __webpack_require__(314),
+	    createAssigner = __webpack_require__(320),
+	    keys = __webpack_require__(316);
 	
 	/**
 	 * A specialized version of `_.assign` for customizing assigned values without
@@ -37346,7 +37335,7 @@
 
 
 /***/ },
-/* 317 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37357,8 +37346,8 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseCopy = __webpack_require__(318),
-	    keys = __webpack_require__(319);
+	var baseCopy = __webpack_require__(315),
+	    keys = __webpack_require__(316);
 	
 	/**
 	 * The base implementation of `_.assign` without support for argument juggling,
@@ -37379,7 +37368,7 @@
 
 
 /***/ },
-/* 318 */
+/* 315 */
 /***/ function(module, exports) {
 
 	/**
@@ -37417,7 +37406,7 @@
 
 
 /***/ },
-/* 319 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37428,9 +37417,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(320),
-	    isArguments = __webpack_require__(321),
-	    isArray = __webpack_require__(322);
+	var getNative = __webpack_require__(317),
+	    isArguments = __webpack_require__(318),
+	    isArray = __webpack_require__(319);
 	
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -37659,7 +37648,7 @@
 
 
 /***/ },
-/* 320 */
+/* 317 */
 /***/ function(module, exports) {
 
 	/**
@@ -37802,7 +37791,7 @@
 
 
 /***/ },
-/* 321 */
+/* 318 */
 /***/ function(module, exports) {
 
 	/**
@@ -38037,7 +38026,7 @@
 
 
 /***/ },
-/* 322 */
+/* 319 */
 /***/ function(module, exports) {
 
 	/**
@@ -38223,7 +38212,7 @@
 
 
 /***/ },
-/* 323 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38234,9 +38223,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var bindCallback = __webpack_require__(324),
-	    isIterateeCall = __webpack_require__(325),
-	    restParam = __webpack_require__(326);
+	var bindCallback = __webpack_require__(321),
+	    isIterateeCall = __webpack_require__(322),
+	    restParam = __webpack_require__(323);
 	
 	/**
 	 * Creates a function that assigns properties of source object(s) to a given
@@ -38281,7 +38270,7 @@
 
 
 /***/ },
-/* 324 */
+/* 321 */
 /***/ function(module, exports) {
 
 	/**
@@ -38352,7 +38341,7 @@
 
 
 /***/ },
-/* 325 */
+/* 322 */
 /***/ function(module, exports) {
 
 	/**
@@ -38490,7 +38479,7 @@
 
 
 /***/ },
-/* 326 */
+/* 323 */
 /***/ function(module, exports) {
 
 	/**
@@ -38563,7 +38552,7 @@
 
 
 /***/ },
-/* 327 */
+/* 324 */
 /***/ function(module, exports) {
 
 	var _element = typeof document !== 'undefined' ? document.body : null;
@@ -38611,7 +38600,7 @@
 
 
 /***/ },
-/* 328 */
+/* 325 */
 /***/ function(module, exports) {
 
 	module.exports = function(opts) {
@@ -38676,35 +38665,7 @@
 
 
 /***/ },
-/* 329 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _reactRedux = __webpack_require__(293);
-	
-	var _banner = __webpack_require__(330);
-	
-	var _banner2 = _interopRequireDefault(_banner);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_banner2.default);
-
-/***/ },
-/* 330 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38753,7 +38714,7 @@
 	exports.default = Banner;
 
 /***/ },
-/* 331 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38764,7 +38725,7 @@
 	
 	var _reactRedux = __webpack_require__(293);
 	
-	var _filter_bar = __webpack_require__(332);
+	var _filter_bar = __webpack_require__(328);
 	
 	var _filter_bar2 = _interopRequireDefault(_filter_bar);
 	
@@ -38794,7 +38755,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_filter_bar2.default);
 
 /***/ },
-/* 332 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

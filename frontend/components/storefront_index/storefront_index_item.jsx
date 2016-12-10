@@ -63,11 +63,6 @@ class StorefrontIndexItem extends React.Component{
     );
   }
 
-  // <div className="addtocart">
-  //   <button onClick={this.addToCart}>Add To Cart</button>
-  // </div>
-
-
 }
 
 export default StorefrontIndexItem;
